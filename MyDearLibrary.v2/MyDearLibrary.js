@@ -244,6 +244,42 @@ if (errorAnio !== "") {
 
 }
 
+const errorDuplicado = validarDuplicado(titulo, autor, anio);
+
+if (errorDuplicado !== "") {
+
+    mensaje.textContent = errorDuplicado;
+
+    return;
+
+}
+
+/* ==========================================
+   VALIDAR LIBRO DUPLICADO
+========================================== */
+
+function validarDuplicado(titulo, autor, anio) {
+
+    const libroDuplicado = libros.some(function(libro) {
+
+        return libro.titulo.toLowerCase() === titulo.trim().toLowerCase() &&
+               libro.autor.toLowerCase() === autor.trim().toLowerCase() &&
+               libro.anio === anio;
+
+    });
+
+
+    if (libroDuplicado) {
+
+        return "Este libro ya está registrado.";
+
+    }
+
+
+    return "";
+
+}
+
     /* ======================================
        CREAR LIBRO
     ====================================== */
