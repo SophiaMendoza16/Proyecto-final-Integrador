@@ -97,50 +97,43 @@ function validarTitulo(titulo) {
 
     titulo = titulo.trim();
 
-
     // Verificar si está vacío
     if (titulo === "") {
 
-        return false;
+        return "El título del libro es obligatorio.";
 
     }
 
-
-    // Verificar que tenga al menos 2 caracteres
+    // Verificar cantidad mínima de caracteres
     if (titulo.length < 2) {
 
-        return false;
+        return "El título debe tener al menos 2 caracteres.";
 
     }
 
-
-    return true;
+    return "";
 
 }
-
 
 function validarAutor(autor) {
 
     autor = autor.trim();
 
-
     // Verificar si está vacío
     if (autor === "") {
 
-        return false;
+        return "El autor del libro es obligatorio.";
 
     }
 
-
-    // Verificar que tenga al menos 2 caracteres
+    // Verificar cantidad mínima de caracteres
     if (autor.length < 2) {
 
-        return false;
+        return "El autor debe tener al menos 2 caracteres.";
 
     }
 
-
-    return true;
+    return "";
 
 }
 
@@ -149,14 +142,13 @@ function validarAnio(anio) {
 
     const anioActual = new Date().getFullYear();
 
-    // Convertir el valor a número
     const numeroAnio = Number(anio);
 
 
     // Verificar si está vacío
     if (anio.trim() === "") {
 
-        return false;
+        return "El año de publicación es obligatorio.";
 
     }
 
@@ -164,7 +156,7 @@ function validarAnio(anio) {
     // Verificar si es un número
     if (isNaN(numeroAnio)) {
 
-        return false;
+        return "El año debe ser un número.";
 
     }
 
@@ -172,7 +164,7 @@ function validarAnio(anio) {
     // Verificar que tenga exactamente 4 dígitos
     if (anio.length !== 4) {
 
-        return false;
+        return "El año debe tener 4 dígitos.";
 
     }
 
@@ -180,20 +172,20 @@ function validarAnio(anio) {
     // Verificar que no sea negativo
     if (numeroAnio < 0) {
 
-        return false;
+        return "El año no puede ser negativo.";
 
     }
 
 
-    // Verificar que no sea un año futuro
+    // Verificar que no sea futuro
     if (numeroAnio > anioActual) {
 
-        return false;
+        return "El año no puede ser posterior al año actual.";
 
     }
 
 
-    return true;
+    return "";
 
 }
 
@@ -220,32 +212,37 @@ document.getElementById("formularioLibro").addEventListener("submit", function(e
        VALIDACIONES
     ====================================== */
 
-    if (!validarTitulo(titulo)) {
+const errorTitulo = validarTitulo(titulo);
 
-        mensaje.textContent = "El título del libro es obligatorio.";
+if (errorTitulo !== "") {
 
-        return;
+    mensaje.textContent = errorTitulo;
 
-    }
+    return;
 
-
-    if (!validarAutor(autor)) {
-
-        mensaje.textContent = "El autor del libro es obligatorio.";
-
-        return;
-
-    }
+}
 
 
-    if (!validarAnio(anio)) {
+const errorAutor = validarAutor(autor);
 
-        mensaje.textContent = "Ingresa un año de publicación válido.";
+if (errorAutor !== "") {
 
-        return;
+    mensaje.textContent = errorAutor;
 
-    }
+    return;
 
+}
+
+
+const errorAnio = validarAnio(anio);
+
+if (errorAnio !== "") {
+
+    mensaje.textContent = errorAnio;
+
+    return;
+
+}
 
     /* ======================================
        CREAR LIBRO
