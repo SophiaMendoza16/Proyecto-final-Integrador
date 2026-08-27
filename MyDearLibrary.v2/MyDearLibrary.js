@@ -127,17 +127,16 @@ function validarAutor(autor) {
 }
 
 
-/* ==========================================
-   VALIDAR AÑO
-========================================== */
-
 function validarAnio(anio) {
 
     const anioActual = new Date().getFullYear();
 
+    // Convertir el valor a número
+    const numeroAnio = Number(anio);
+
 
     // Verificar si está vacío
-    if (anio === "") {
+    if (anio.trim() === "") {
 
         return false;
 
@@ -145,15 +144,31 @@ function validarAnio(anio) {
 
 
     // Verificar si es un número
-    if (isNaN(anio)) {
+    if (isNaN(numeroAnio)) {
 
         return false;
 
     }
 
 
-    // Verificar que esté dentro de un rango válido
-    if (anio < 0 || anio > anioActual) {
+    // Verificar que tenga exactamente 4 dígitos
+    if (anio.length !== 4) {
+
+        return false;
+
+    }
+
+
+    // Verificar que no sea negativo
+    if (numeroAnio < 0) {
+
+        return false;
+
+    }
+
+
+    // Verificar que no sea un año futuro
+    if (numeroAnio > anioActual) {
 
         return false;
 
@@ -163,7 +178,6 @@ function validarAnio(anio) {
     return true;
 
 }
-
 
 /* ==========================================
    AGREGAR LIBRO
