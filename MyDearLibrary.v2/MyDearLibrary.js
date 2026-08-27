@@ -93,34 +93,52 @@ function cerrarSesion() {
 }
 
 
-/* ==========================================
-   VALIDAR TÍTULO
-========================================== */
-
 function validarTitulo(titulo) {
 
-    if (titulo.trim() === "") {
+    titulo = titulo.trim();
+
+
+    // Verificar si está vacío
+    if (titulo === "") {
 
         return false;
 
     }
+
+
+    // Verificar que tenga al menos 2 caracteres
+    if (titulo.length < 2) {
+
+        return false;
+
+    }
+
 
     return true;
 
 }
 
 
-/* ==========================================
-   VALIDAR AUTOR
-========================================== */
-
 function validarAutor(autor) {
 
-    if (autor.trim() === "") {
+    autor = autor.trim();
+
+
+    // Verificar si está vacío
+    if (autor === "") {
 
         return false;
 
     }
+
+
+    // Verificar que tenga al menos 2 caracteres
+    if (autor.length < 2) {
+
+        return false;
+
+    }
+
 
     return true;
 
