@@ -40,22 +40,24 @@ document.getElementById("formularioLogin").addEventListener("submit", function(e
 
 
     // Usuario y contraseña sencillos
-    if (usuario === "admin" && contrasena === "1234") {
+if (usuario === "admin" && contrasena === "1234") {
 
-        document.getElementById("login").classList.add("oculto");
+    document.getElementById("login").classList.add("oculto");
 
-        document.getElementById("sistema").classList.remove("oculto");
+    document.getElementById("sistema").classList.remove("oculto");
 
-        mensaje.textContent = "";
+    mensaje.textContent = "";
 
-        mostrarMenu("inicio");
+    // Actualizar contador con los libros guardados
+    actualizarCantidadLibros();
 
-    } else {
+    mostrarMenu("inicio");
 
-        mensaje.textContent = "Usuario o contraseña incorrectos.";
+} else {
 
-    }
+    mensaje.textContent = "Usuario o contraseña incorrectos.";
 
+}
 });
 
 
