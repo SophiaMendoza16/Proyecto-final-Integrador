@@ -398,6 +398,84 @@ function mostrarLibros() {
 
 }
 
+/* ==========================================
+   BUSCAR LIBROS
+========================================== */
+
+function buscarLibros() {
+
+    const textoBusqueda = document
+        .getElementById("buscarLibro")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const lista = document.getElementById("listaLibros");
+
+    lista.innerHTML = "";
+
+    // Si no hay libros registrados
+    if (libros.length === 0) {
+
+        lista.innerHTML = `
+            <p>
+                Todavía no hay libros registrados.
+            </p>
+        `;
+
+        return;
+    }
+
+    // Filtrar libros
+    const resultados = libros.filter(function(libro) {
+
+        return (
+            libro.titulo.toLowerCase().includes(textoBusqueda) ||
+            libro.autor.toLowerCase().includes(textoBusqueda) ||
+            libro.anio.toString().includes(textoBusqueda)
+        );
+
+    });
+
+    // Si no existen coincidencias
+    if (resultados.length === 0) {
+
+        lista.innerHTML = `
+            <p>
+                No se encontraron libros.
+            </p>
+        `;
+
+        return;
+    }
+
+    // Mostrar resultados
+    resultados.forEach(function(libro) {
+
+        const tarjeta = document.createElement("div");
+
+        tarjeta.classList.add("libro");
+
+        tarjeta.innerHTML = `
+            <h3>${libro.titulo}</h3>
+
+            <p>
+                <strong>Autor:</strong>
+                ${libro.autor}
+            </p>
+
+            <p>
+                <strong>Año:</strong>
+                ${libro.anio}
+            </p>
+        `;
+
+        lista.appendChild(tarjeta);
+
+    });
+
+}
+
 
 /* ==========================================
    ACTUALIZAR CANTIDAD DE LIBROS
@@ -415,3 +493,11 @@ function actualizarCantidadLibros() {
 ========================================== */
 
 actualizarCantidadLibros();
+
+/* ==========================================
+   EVENTO DE BÚSQUEDA
+========================================== */
+
+document
+    .getElementById("buscarLibro")
+    .addEventListener("input", buscarLibros);
