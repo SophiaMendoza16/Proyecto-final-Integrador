@@ -96,6 +96,10 @@
                  Mis libros
             </button>
 
+            <button onclick="mostrarMenu('regresion')">
+                 Predicción
+            </button>
+
             <button onclick="cerrarSesion()">
                  Cerrar sesión
             </button>
@@ -109,105 +113,151 @@
 
         <main>
 
-            <!-- =============== INICIO =============== -->
+    <!-- =============== INICIO =============== -->
 
-            <section id="inicio" class="seccion">
+    <section id="inicio" class="seccion">
 
-                <h2> Bienvenido a MyDearLibrary</h2>
-
-                <p>
-                    Aquí podrás registrar y consultar
-                    los libros de tu biblioteca personal.
-                </p>
-
-                <div class="resumen">
-
-                    <h3> Libros registrados</h3>
-
-                    <p id="cantidadLibros">
-                        0
-                    </p>
-
-                </div>
-
-            </section>
-
-
-            <!-- ============ Agregar libro ============ -->
-
-            <section id="agregar" class="seccion oculto">
-
-                <h2> Agregar libro</h2>
-
-                <form id="formularioLibro">
-
-                    <label for="titulo">
-                        Título del libro
-                    </label>
-
-                    <input
-                        type="text"
-                        id="titulo"
-                        placeholder="Ej: El Hobbit"
-                    >
-
-
-                    <label for="autor">
-                        Autor
-                    </label>
-
-                    <input
-                        type="text"
-                        id="autor"
-                        placeholder="Ej: J.R.R. Tolkien"
-                    >
-
-
-                    <label for="anio">
-                        Año de publicación
-                    </label>
-
-                    <input
-                        type="number"
-                        id="anio"
-                        placeholder="Ej: 1937"
-                    >
-
-
-                    <button type="submit">
-                         Guardar libro
-                    </button>
-
-                </form>
-
-                <!-- Mensaje del registro -->
-                <p id="mensajeLibro"></p>
-
-            </section>
-
-
-          <!-- ============== Mis libros ============== -->
-
-<section id="libros" class="seccion oculto">
-
-    <h2>Mis libros</h2>
-
-    <!-- Campo de búsqueda -->
-    <input
-        type="text"
-        id="buscarLibro"
-        placeholder="Buscar por título, autor o año"
-    >
-
-    <div id="listaLibros">
+        <h2>Bienvenido a MyDearLibrary</h2>
 
         <p>
-            Todavía no hay libros registrados.
+            Aquí podrás registrar y consultar
+            los libros de tu biblioteca personal.
         </p>
 
-    </div>
+        <div class="resumen">
 
-</section>
+            <h3>Libros registrados</h3>
+
+            <p id="cantidadLibros">
+                0
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============ Agregar libro ============ -->
+
+    <section id="agregar" class="seccion oculto">
+
+        <h2>Agregar libro</h2>
+
+        <form id="formularioLibro">
+
+            <label for="titulo">
+                Título del libro
+            </label>
+
+            <input
+                type="text"
+                id="titulo"
+                placeholder="Ej: El Hobbit"
+            >
+
+
+            <label for="autor">
+                Autor
+            </label>
+
+            <input
+                type="text"
+                id="autor"
+                placeholder="Ej: J.R.R. Tolkien"
+            >
+
+
+            <label for="anio">
+                Año de publicación
+            </label>
+
+            <input
+                type="number"
+                id="anio"
+                placeholder="Ej: 1937"
+            >
+
+
+            <button type="submit">
+                Guardar libro
+            </button>
+
+        </form>
+
+        <p id="mensajeLibro"></p>
+
+    </section>
+
+
+    <!-- ============== Mis libros ============== -->
+
+    <section id="libros" class="seccion oculto">
+
+        <h2>Mis libros</h2>
+
+        <input
+            type="text"
+            id="buscarLibro"
+            placeholder="Buscar por título, autor o año"
+        >
+
+        <div id="listaLibros">
+
+            <p>
+                Todavía no hay libros registrados.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============ Regresión lineal ============ -->
+
+    <section id="regresion" class="seccion oculto">
+
+        <h2>📈 Predicción de libros</h2>
+
+        <p>
+            La regresión lineal permite analizar la cantidad
+            de libros registrados y realizar una estimación
+            para los próximos meses.
+        </p>
+
+        <div
+            id="ecuacionRegresion"
+            class="ecuacion-regresion"
+        >
+            Calculando modelo...
+        </div>
+
+        <div class="tabla-contenedor">
+
+            <table class="tabla-regresion">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Mes</th>
+
+                        <th>Cantidad de libros</th>
+
+                        <th>Tipo de dato</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tablaRegresion">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
 
 </main>
 

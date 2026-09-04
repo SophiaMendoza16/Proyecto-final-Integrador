@@ -7,23 +7,132 @@
    VARIABLES
 ========================================== */
 
-// Lista donde se almacenarán los libros
-let libros = JSON.parse(localStorage.getItem("libros")) || [];
+// Usuarios disponibles
+const usuarios = {
+    Angie: "1234",
+    Johan: "1234",
+    Daniel: "1234"
+};
+
+// Usuario que inició sesión
+let usuarioActual = "";
+
+// Bibliotecas de cada usuario
+let bibliotecas = JSON.parse(
+    localStorage.getItem("bibliotecas")
+) || {};
+
+/* ==========================================
+   LIBROS INICIALES
+========================================== */
+
+const librosIniciales = {
+
+    Angie: [
+        { titulo: "El Hobbit", autor: "J.R.R. Tolkien", anio: "1937" },
+        { titulo: "Cien años de soledad", autor: "Gabriel García Márquez", anio: "1967" },
+        { titulo: "Orgullo y prejuicio", autor: "Jane Austen", anio: "1813" },
+        { titulo: "Frankenstein", autor: "Mary Shelley", anio: "1818" },
+        { titulo: "Drácula", autor: "Bram Stoker", anio: "1897" },
+        { titulo: "El Principito", autor: "Antoine de Saint-Exupéry", anio: "1943" },
+        { titulo: "Alicia en el país de las maravillas", autor: "Lewis Carroll", anio: "1865" },
+        { titulo: "Don Quijote de la Mancha", autor: "Miguel de Cervantes", anio: "1605" },
+        { titulo: "Jane Eyre", autor: "Charlotte Brontë", anio: "1847" },
+        { titulo: "Mujercitas", autor: "Louisa May Alcott", anio: "1868" },
+        { titulo: "La isla del tesoro", autor: "Robert Louis Stevenson", anio: "1883" },
+        { titulo: "Peter Pan", autor: "J. M. Barrie", anio: "1911" },
+        { titulo: "El retrato de Dorian Gray", autor: "Oscar Wilde", anio: "1890" },
+        { titulo: "La Odisea", autor: "Homero", anio: "700" },
+        { titulo: "Romeo y Julieta", autor: "William Shakespeare", anio: "1597" },
+        { titulo: "El viejo y el mar", autor: "Ernest Hemingway", anio: "1952" },
+        { titulo: "Viaje al centro de la Tierra", autor: "Julio Verne", anio: "1864" },
+        { titulo: "La máquina del tiempo", autor: "H. G. Wells", anio: "1895" },
+        { titulo: "Las aventuras de Tom Sawyer", autor: "Mark Twain", anio: "1876" },
+        { titulo: "Moby-Dick", autor: "Herman Melville", anio: "1851" }
+    ],
+
+    Johan: [
+        { titulo: "El Señor de los Anillos", autor: "J.R.R. Tolkien", anio: "1954" },
+        { titulo: "Harry Potter y la piedra filosofal", autor: "J.K. Rowling", anio: "1997" },
+        { titulo: "Harry Potter y la cámara secreta", autor: "J.K. Rowling", anio: "1998" },
+        { titulo: "El código Da Vinci", autor: "Dan Brown", anio: "2003" },
+        { titulo: "Los juegos del hambre", autor: "Suzanne Collins", anio: "2008" },
+        { titulo: "Divergente", autor: "Veronica Roth", anio: "2011" },
+        { titulo: "It", autor: "Stephen King", anio: "1986" },
+        { titulo: "Carrie", autor: "Stephen King", anio: "1974" },
+        { titulo: "El resplandor", autor: "Stephen King", anio: "1977" },
+        { titulo: "1984", autor: "George Orwell", anio: "1949" },
+        { titulo: "Rebelión en la granja", autor: "George Orwell", anio: "1945" },
+        { titulo: "Fahrenheit 451", autor: "Ray Bradbury", anio: "1953" },
+        { titulo: "Crónica de una muerte anunciada", autor: "Gabriel García Márquez", anio: "1981" },
+        { titulo: "El amor en los tiempos del cólera", autor: "Gabriel García Márquez", anio: "1985" },
+        { titulo: "La sombra del viento", autor: "Carlos Ruiz Zafón", anio: "2001" },
+        { titulo: "El alquimista", autor: "Paulo Coelho", anio: "1988" },
+        { titulo: "Sapiens", autor: "Yuval Noah Harari", anio: "2011" },
+        { titulo: "El nombre del viento", autor: "Patrick Rothfuss", anio: "2007" },
+        { titulo: "Dune", autor: "Frank Herbert", anio: "1965" },
+        { titulo: "Neuromante", autor: "William Gibson", anio: "1984" }
+    ],
+
+    Daniel: [
+        { titulo: "La metamorfosis", autor: "Franz Kafka", anio: "1915" },
+        { titulo: "El proceso", autor: "Franz Kafka", anio: "1925" },
+        { titulo: "La divina comedia", autor: "Dante Alighieri", anio: "1320" },
+        { titulo: "Hamlet", autor: "William Shakespeare", anio: "1603" },
+        { titulo: "Macbeth", autor: "William Shakespeare", anio: "1606" },
+        { titulo: "La Ilíada", autor: "Homero", anio: "700" },
+        { titulo: "Robinson Crusoe", autor: "Daniel Defoe", anio: "1719" },
+        { titulo: "Los viajes de Gulliver", autor: "Jonathan Swift", anio: "1726" },
+        { titulo: "Los miserables", autor: "Victor Hugo", anio: "1862" },
+        { titulo: "Nuestra Señora de París", autor: "Victor Hugo", anio: "1831" },
+        { titulo: "El conde de Montecristo", autor: "Alexandre Dumas", anio: "1844" },
+        { titulo: "Los tres mosqueteros", autor: "Alexandre Dumas", anio: "1844" },
+        { titulo: "Guerra y paz", autor: "León Tolstói", anio: "1869" },
+        { titulo: "Anna Karénina", autor: "León Tolstói", anio: "1878" },
+        { titulo: "Crimen y castigo", autor: "Fiódor Dostoyevski", anio: "1866" },
+        { titulo: "El gran Gatsby", autor: "F. Scott Fitzgerald", anio: "1925" },
+        { titulo: "Ulises", autor: "James Joyce", anio: "1922" },
+        { titulo: "El extranjero", autor: "Albert Camus", anio: "1942" },
+        { titulo: "El Principito", autor: "Antoine de Saint-Exupéry", anio: "1943" },
+        { titulo: "La vuelta al mundo en 80 días", autor: "Julio Verne", anio: "1872" }
+    ]
+
+};
+
+/* ==========================================
+   INICIALIZAR BIBLIOTECAS
+========================================== */
+
+Object.keys(usuarios).forEach(function(usuario) {
+
+    if (!bibliotecas[usuario]) {
+
+        bibliotecas[usuario] = librosIniciales[usuario];
+
+    }
+
+});
+
+localStorage.setItem(
+    "bibliotecas",
+    JSON.stringify(bibliotecas)
+);
 
 
 /* ==========================================
-   GUARDAR LIBROS EN LOCALSTORAGE 
+   GUARDAR LIBROS EN LOCALSTORAGE
 ========================================== */
 
 function guardarLibros() {
 
+    bibliotecas[usuarioActual] = libros;
+
     localStorage.setItem(
-        "libros",
-        JSON.stringify(libros)
+        "bibliotecas",
+        JSON.stringify(bibliotecas)
     );
 
 }
-
 
 /* ==========================================
    INICIO DE SESIÓN
@@ -33,31 +142,42 @@ document.getElementById("formularioLogin").addEventListener("submit", function(e
 
     event.preventDefault();
 
-    const usuario = document.getElementById("usuario").value;
+    const usuario = document.getElementById("usuario").value.trim();
     const contrasena = document.getElementById("contrasena").value;
 
     const mensaje = document.getElementById("mensajeLogin");
 
+    // Verificar usuario y contraseña
+    if (
+        (usuario === "Angie" || usuario === "Johan" || usuario === "Daniel") &&
+        contrasena === "1234"
+    ) {
 
-    // Usuario y contraseña sencillos
-if (usuario === "admin" && contrasena === "1234") {
+        // Guardar el usuario que inició sesión
+        usuarioActual = usuario;
 
-    document.getElementById("login").classList.add("oculto");
+        // Cargar la biblioteca correspondiente
+        libros = bibliotecas[usuarioActual];
 
-    document.getElementById("sistema").classList.remove("oculto");
+        // Ocultar login y mostrar sistema
+        document.getElementById("login").classList.add("oculto");
 
-    mensaje.textContent = "";
+        document.getElementById("sistema").classList.remove("oculto");
 
-    // Actualizar contador con los libros guardados
-    actualizarCantidadLibros();
+        mensaje.textContent = "";
 
-    mostrarMenu("inicio");
+        // Actualizar contador con los libros del usuario
+        actualizarCantidadLibros();
 
-} else {
+        // Mostrar inicio
+        mostrarMenu("inicio");
 
-    mensaje.textContent = "Usuario o contraseña incorrectos.";
+    } else {
 
-}
+        mensaje.textContent = "Usuario o contraseña incorrectos.";
+
+    }
+
 });
 
 
@@ -501,3 +621,203 @@ actualizarCantidadLibros();
 document
     .getElementById("buscarLibro")
     .addEventListener("input", buscarLibros);
+
+    /* ==========================================
+   REGRESIÓN LINEAL
+========================================== */
+
+function calcularRegresionLineal() {
+
+    // Datos históricos de ejemplo
+    const mesesHistoricos = [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+    ];
+
+    const librosHistoricos = [
+        120,
+        150,
+        175,
+        210,
+        240,
+        270
+    ];
+
+
+    // Verificar cantidad de datos
+    if (mesesHistoricos.length !== librosHistoricos.length) {
+
+        return;
+
+    }
+
+
+    const n = mesesHistoricos.length;
+
+
+    // Sumas necesarias
+    const sumX = mesesHistoricos.reduce(
+        (total, valor) => total + valor,
+        0
+    );
+
+
+    const sumY = librosHistoricos.reduce(
+        (total, valor) => total + valor,
+        0
+    );
+
+
+    const sumXY = mesesHistoricos.reduce(
+        (total, x, indice) =>
+            total + (x * librosHistoricos[indice]),
+        0
+    );
+
+
+    const sumX2 = mesesHistoricos.reduce(
+        (total, x) =>
+            total + (x ** 2),
+        0
+    );
+
+
+    // Denominador
+    const denominador =
+        (n * sumX2) - (sumX ** 2);
+
+
+    if (denominador === 0) {
+
+        document.getElementById(
+            "ecuacionRegresion"
+        ).textContent =
+            "No es posible calcular la regresión.";
+
+        return;
+
+    }
+
+
+    // Pendiente
+    const pendiente =
+        ((n * sumXY) - (sumX * sumY))
+        / denominador;
+
+
+    // Intersección
+    const interseccion =
+        (sumY - (pendiente * sumX))
+        / n;
+
+
+    // Mostrar ecuación
+    document.getElementById(
+        "ecuacionRegresion"
+    ).textContent =
+        `Modelo: y = ${pendiente.toFixed(2)}x + ${interseccion.toFixed(2)}`;
+
+
+    // Tabla
+    const tabla =
+        document.getElementById("tablaRegresion");
+
+
+    tabla.innerHTML = "";
+
+
+    // ==========================================
+    // DATOS HISTÓRICOS
+    // ==========================================
+
+    mesesHistoricos.forEach(function(mes, indice) {
+
+        const fila =
+            document.createElement("tr");
+
+
+        fila.innerHTML = `
+            <td>${mes}</td>
+
+            <td>
+                ${librosHistoricos[indice]}
+            </td>
+
+            <td>
+                Histórico
+            </td>
+        `;
+
+
+        tabla.appendChild(fila);
+
+    });
+
+
+    // ==========================================
+    // PREDICCIONES
+    // ==========================================
+
+    const ultimoMes =
+        mesesHistoricos[mesesHistoricos.length - 1];
+
+
+    for (let i = 1; i <= 3; i++) {
+
+        const mesFuturo =
+            ultimoMes + i;
+
+
+        let estimacion =
+            (pendiente * mesFuturo)
+            + interseccion;
+
+
+        // Evitar cantidades negativas
+        if (estimacion < 0) {
+
+            estimacion = 0;
+
+        }
+
+
+        estimacion =
+            Math.round(estimacion);
+
+
+        const fila =
+            document.createElement("tr");
+
+
+        fila.classList.add("prediccion");
+
+
+        fila.innerHTML = `
+            <td>${mesFuturo}</td>
+
+            <td class="cantidad-prediccion">
+                ≈ ${estimacion}
+            </td>
+
+            <td>
+                Predicción
+            </td>
+        `;
+
+
+        tabla.appendChild(fila);
+
+    }
+
+}
+
+
+/* ==========================================
+   EJECUTAR REGRESIÓN
+========================================== */
+
+calcularRegresionLineal();
